@@ -34,7 +34,7 @@ const plans = [
 ];
 
 export default function Subscription() {
-  const { subscription, clinic, refreshAuthData } = useAuth();
+  const { user, subscription, clinic, refreshAuthData } = useAuth();
   const { planName } = usePlan();
   const [selectedPlan, setSelectedPlan] = useState<typeof plans[0] | null>(null);
   const [paymentStep, setPaymentStep] = useState<'options' | 'processing' | 'success'>('options');
@@ -48,7 +48,7 @@ export default function Subscription() {
     try {
       // Em um fluxo real de upgrade, chamamos o backend para criar uma sessão de checkout do Stripe
       // para o novo plano, passando o customer_id existente se houver.
-      const response = await fetch('http://localhost:3001/api/checkout/upgrade', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/checkout/upgrade`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -117,7 +117,7 @@ export default function Subscription() {
                     onClick={async () => {
                       if (confirm(`Ativar plano ${slug.toUpperCase()} manualmente?`)) {
                         try {
-                          const response = await fetch('http://localhost:3001/api/dev/activate-plan', {
+                          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/dev/activate-plan`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ userId: user?.id, planSlug: slug })
