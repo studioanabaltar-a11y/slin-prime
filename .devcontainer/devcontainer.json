@@ -1,0 +1,18 @@
+{
+  "name": "Slin Prime Cloud Environment",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dsznajder.es7-react-js-snippets",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "christian-kohler.path-intellisense"
+      ]
+    }
+  },
+  "forwardPorts": [3000, 5173],
+  "postCreateCommand": "npm install",
+  "remoteUser": "node"
+}
